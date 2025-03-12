@@ -1,0 +1,29 @@
+name = "medconnect-backend"
+main = "src/index.ts"
+compatibility_date = "2025-01-18"
+
+compatibility_flags = [ "nodejs_compat" ]
+
+# [vars]
+# MY_VAR = "my-variable"
+DATABASE_URL= "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiYjY1ZGRhYzMtNTAwNS00N2ZmLWFkM2QtY2YyZTQwMDdiNGQ1IiwidGVuYW50X2lkIjoiMGQ4ZThkYzNmZTZkODc0YTNhMzc2ZDJlNWY0YzAyMzZmNTE2NzM2MTY2ZGEwZjJmZjIzNTY3NGVlODJjYTI5NyIsImludGVybmFsX3NlY3JldCI6IjkwYmRhN2JmLWNjOWUtNDk4NS1hOTI4LWU3MjY0NTU4NzZmYSJ9.ma-pCSQlBYuF48MGgOy3gg-b3l6dKqcm6a59CCzMGOA"
+
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "my-database"
+# database_id = ""
+
+# [ai]
+# binding = "AI"
+
+# [observability]
+# enabled = true
+# head_sampling_rate = 1

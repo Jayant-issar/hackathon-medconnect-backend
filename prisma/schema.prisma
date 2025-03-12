@@ -1,0 +1,98 @@
+// This is your Prisma schema file
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Hospital model matching your existing structure
+model Hospital {
+  id        String   @id @default(cuid())
+  name      String
+  address   String
+  phone     String
+  latitude  Float
+  longitude Float
+  
+  
+  beds      BedInformation[]     // Will store array of bed information
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Blood Bank model matching your existing structure
+model BloodBank {
+  id        String   @id @default(cuid())
+  name      String
+  address   String
+  phone     String
+  latitude  Float
+  longitude Float
+  
+  
+  inventory BloodInventory[]     // Will store array of blood inventory
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Simple User model for basic authentication
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String?    // Remember to hash passwords!
+  name          String?
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model BloodInventory {
+  id String @id @default(cuid())
+  bloodGroup BloodGroup
+  units Int
+
+  updatedAt DateTime @updatedAt
+
+  BloodBank BloodBank[]
+}
+
+model BedInformation {
+  id String @id @default(cuid())
+  type BedType
+  available Int
+  total Int
+
+  updatedAt DateTime @updatedAt
+
+  Hospital Hospital[]
+}
+// Simple enum for user roles
+enum UserRole {
+  USER
+  ADMIN
+}
+
+
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
+
+enum BedType {
+  ICU
+  General
+  Emergency
+  Pediatric
+}
