@@ -1,0 +1,157 @@
+1. Project Overview
+Problem Statement:
+Current medical emergency systems lack real-time coordination between patients, hospitals, and volunteers, leading to delayed treatments and resource shortages.
+
+Solution:
+A web-based platform to centralize critical resources (blood banks, hospital beds, medical supplies), enable community-driven assistance, and provide real-time alerts during emergencies.
+
+Key Focus Areas:
+
+Centralized Resource Finder
+
+Smart Resource Allocation (AI-driven prioritization)
+
+Community-Driven Help
+
+Event Management
+
+Real-Time Notifications
+
+Out of Scope:
+
+Wearable device integration (future phase).
+
+Full AI/ML model training (use mock/demo APIs).
+
+2. User Stories
+As a patient, I want to search for nearby blood banks with my blood type availability.
+
+As a hospital admin, I want to update bed/ventilator availability in real-time.
+
+As a volunteer, I want to receive notifications for blood donation requests near me.
+
+As an event organizer, I want to create and publish a blood donation camp.
+
+As a system, I want to prioritize urgent cases using simple AI rules.
+
+3. Technical Specifications
+Tech Stack:
+
+Frontend: Next.js (React), Tailwind CSS, Tanstack Query.
+
+Backend: Next.js API Routes + Express.js.
+
+Database: PostgreSQL (Prisma ORM), Redis (real-time caching).
+
+AI/ML: Mock API (e.g., simulate prioritization logic).
+
+Real-Time: Socket.io (WebSockets) for notifications.
+
+Auth: NextAuth.js (Google/GitHub OAuth).
+
+Maps: Google Maps API.
+
+APIs to Integrate:
+
+Google Maps API (resource location).
+
+Mock "AI" API (e.g., a Flask endpoint with simple priority rules).
+
+4. Features to Implement
+A. Centralized Resource Finder
+Search for:
+
+Blood banks (filter by blood type, distance).
+
+Hospital beds (ICU/ventilator availability).
+
+Medical supplies (oxygen cylinders).
+
+UI: Interactive map + list view.
+
+B. Smart Resource Allocation
+Demo AI Rule: Prioritize requests based on:
+
+Proximity.
+
+Urgency level (e.g., "critical" flagged by hospitals).
+
+Mock API: Return prioritized list of resources.
+
+C. Community-Driven Help
+Users can:
+
+Request help (blood donors, transportation).
+
+Volunteer to assist (opt-in notifications).
+
+Notifications: Socket.io alerts for nearby volunteers.
+
+D. Event Management
+Create/publicize events (blood drives, vaccination camps).
+
+RSVP functionality.
+
+E. Real-Time Notifications
+Hospital bed availability alerts.
+
+Blood donation requests sent to volunteers.
+
+5. Database Design (Prisma Schema)
+prisma
+Copy
+model User {  
+  id          String   @id @default(uuid())  
+  name        String  
+  email       String   @unique  
+  bloodType   String?  
+  role        Role     @default(VOLUNTEER) // PATIENT, HOSPITAL_ADMIN, VOLUNTEER  
+  location    String?  // Latitude,Longitude  
+}  
+
+model Hospital {  
+  id          String   @id @default(uuid())  
+  name        String  
+  beds        Int  
+  ventilators Int  
+  updatedAt   DateTime @updatedAt  
+}  
+
+model BloodBank {  
+  id          String   @id @default(uuid())  
+  name        String  
+  bloodTypes  String[] // e.g., ["A+", "O-"]  
+  location    String  
+}  
+
+model Event {  
+  id          String   @id @default(uuid())  
+  title       String  
+  type        String   // "BLOOD_DRIVE", "VACCINATION"  
+  location    String  
+  date        DateTime  
+}  
+6. Non-Functional Requirements
+Performance: <2s response time for critical APIs.
+
+Security: HTTPS, environment variables for API keys.
+
+Scalability: Stateless backend; Redis caching for frequent queries.
+
+7. Timeline (5 Days)
+Day 1: Project setup, DB schema, auth, basic CRUD APIs.
+
+Day 2: Resource Finder UI + Google Maps integration.
+
+Day 3: Smart Allocation (mock AI), Community Help (notifications).
+
+Day 4: Event Management, Real-Time Alerts (Socket.io).
+
+Day 5: Testing, Documentation, Demo Video.
+
+8. Risks & Mitigations
+Real-Time Sync Delay: Use Redis + Socket.io for instant updates.
+
+AI Demo Limitation: Simulate prioritization with hardcoded rules.
+
+Auth Complexity: Use NextAuth.js for pre-built OAuth.
