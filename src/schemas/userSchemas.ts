@@ -5,7 +5,7 @@ export const onboardUserSchema = z.object({
   name: z.string().optional(),
   bloodType: z.string().optional(), // Consider making this an enum validation
   role: z.enum(["USER", "ADMIN"]).optional(), // Assuming UserRole enum from Prisma schema
-  location: z.string().optional(), // Consider more specific location format validation
+  clerkId: z.string()
 });
 
 export type OnboardUserType = z.infer<typeof onboardUserSchema>;
