@@ -47,18 +47,33 @@ model User {
   password      String?    
   name          String?
   role          UserRole  @default(USER)
+  emergencies   Emergency[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
+}
+
+model Emergency {
+  id              String    @id @default(cuid())
+  name            String
+  location        String
+  hospitalName    String?
+  contactName     String
+  contactPhone    String
+  urgencyLevel    String
+  description     String?
+  userId          String
+  user            User @relation(fields: [userId], references: [id])
 }
 
 model BloodInventory {
   id String @id @default(cuid())
   bloodGroup BloodGroup
   units Int
-
+  bloodBankId String
   updatedAt DateTime @updatedAt
 
-  BloodBank BloodBank[]
+  BloodBank BloodBank @relation(fields: [bloodBankId], references: [id])
 }
 
 model BedInformation {
