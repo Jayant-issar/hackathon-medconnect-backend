@@ -3,6 +3,7 @@ import { cors } from "hono/cors";
 import { userRouter } from "./modules/user/userRouter";
 import { hospitalRouter } from "./modules/hospital/hospitalRouter";
 import { bloodBankRouter } from "./modules/bloodbank/bloodbankRouter";
+import { emergencyRouter } from "./modules/emergency/emergencyRouter";
 
 const app = new Hono();
 
@@ -13,6 +14,7 @@ app.use(cors());
 app.route("/api/users", userRouter);
 app.route("/api/hospitals", hospitalRouter);
 app.route("/api/bloodbanks", bloodBankRouter);
+app.route("/api/emergencies", emergencyRouter);
 
 // Health check route
 app.get("/", (c) => {
