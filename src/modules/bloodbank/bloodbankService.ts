@@ -86,33 +86,37 @@ export class BloodBankService {
     async updateBloodBankInventory(id: string, inventoryData: UpdateBloodBankInventoryType): Promise<BloodBank & { inventory: BloodInventory[] }> {
         console.log("🟢 BloodBank service: updateBloodBankInventory started");
         try {
-            // First, clear the existing inventory for the blood bank
-            await this.prisma.bloodInventory.deleteMany({
-                where: {
-                    BloodBank: {
-                        some: {
-                            id: id,
-                        }
+            //check if the blood bank exists
+            const bloodbank = await this.prisma.bloodBank.findUnique({
+                where:{id},
+                include:{
+                    inventory:true
+                }
+            })
+            if(!bloodbank){
+                throw Error(`No blood bank exists the given ID ${id} `,{
+                    cause:"Such id provided that does not exists in the data base"
+                })
+            }
+            
+            const updatedBloodBank = this.prisma.bloodBank.update({
+                where:{id},
+                data:{
+                    inventory:{
+                        updateMany:inventoryData.inventory.map((item)=>{
+                            return{
+                                where:{bloodGroup:item.bloodGroup},
+                                data:{units:item.units}
+                            }
+                        })
                     }
                 },
-            });
-
-            // Then, create new inventory entries and connect them to the blood bank
-            const updatedBloodBank = await this.prisma.bloodBank.update({
-                where: { id },
-                data: {
-                    inventory: {
-                        create: inventoryData.inventory.map(item => ({
-                            bloodGroup: item.bloodGroup,
-                            units: item.units,
-                        })),
-                    },
-                },
-                include: {
-                    inventory: true,
-                },
-            });
-            return updatedBloodBank;
+                include:{
+                    inventory:true
+                }
+            })
+            
+            return updatedBloodBank
         } catch (error) {
             console.log("🔴 Error in updateBloodBankInventory service:", error);
             throw new Error(`Failed to update blood bank inventory: ${error instanceof Error ? error.message : "Unknown error"}`);
