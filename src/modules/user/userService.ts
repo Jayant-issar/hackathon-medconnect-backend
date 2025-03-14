@@ -14,7 +14,7 @@ export class UserService {
     try {
       // Check if user exists
       const existingUser = await this.prisma.user.findUnique({
-        where: { email: userData.email },
+        where: { email: userData.email, clerkId: userData.clerkId },
       });
 
       if (existingUser) {
@@ -27,6 +27,7 @@ export class UserService {
           email: userData.email,
           name: userData.name || "Anonymous User",
           role: userData.role as any || "USER",
+          clerkId: userData.clerkId
         },
       });
 
