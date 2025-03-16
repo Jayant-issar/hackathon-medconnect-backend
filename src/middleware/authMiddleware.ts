@@ -20,7 +20,8 @@ export async function authMiddleware(c: Context<{ Bindings: Env; Variables: Vari
         if (!token) {
             return c.json({ error: "Authorization token required" }, 401);
         }
-
+        console.log("JWKS URL:", c.env.CLERK_JWKS_URL);
+        console.log("JWT Issuer:", c.env.CLERK_JWT_ISSUER);
         // Get Clerk JWKS
         const JWKS = createRemoteJWKSet(new URL(c.env.CLERK_JWKS_URL));
         

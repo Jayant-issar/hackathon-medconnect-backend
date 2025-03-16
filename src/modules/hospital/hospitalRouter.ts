@@ -19,45 +19,45 @@ hospitalRouter.get("/:id", (c) => hospitalController.getHospitalById(c));
 hospitalRouter.put("/:hospitalId/beds/:bedId", validateRequest(updateBedAvailabilitySchema), (c) => hospitalController.updateBedAvailability(c)); 
 
 
-hospitalRouter.get("/seed", async (c) => {
-    console.log("Seeding dummy hospitals...");
-    try {
+// hospitalRouter.get("/seed", async (c) => {
+//     console.log("Seeding dummy hospitals...");
+//     try {
         
-        await Promise.all(dummyHospitals.map(async (hospital) => {
-                let createdHospital = await db.hospital.create({
-                data:{
-                    address: hospital.address,
-                    name: hospital.name,
-                    phone: hospital.phone,
-                    latitude: hospital.location.lat,
-                    longitude: hospital.location.lng,
+//         await Promise.all(dummyHospitals.map(async (hospital) => {
+//                 let createdHospital = await db.hospital.create({
+//                 data:{
+//                     address: hospital.address,
+//                     name: hospital.name,
+//                     phone: hospital.phone,
+//                     latitude: hospital.location.lat,
+//                     longitude: hospital.location.lng,
 
-                }
+//                 }
 
-            })
-
-
-            await Promise.all(hospital.beds.map(async (bed)=>{
-                await db.bedInformation.create({
-                    data:{
-                        available: bed.available,
-                        total: bed.total,
-                        type: bed.type,
-                        Hospital:{
-                            connect:{id: createdHospital.id}
-                        }
-                    }
-                })
-            }))
-            console.log("Hospital seeded:", createdHospital);
-
-        }))
+//             })
 
 
-        return c.json({message: "Dummy hospitals seeded successfully"});
+//             await Promise.all(hospital.beds.map(async (bed)=>{
+//                 await db.bedInformation.create({
+//                     data:{
+//                         available: bed.available,
+//                         total: bed.total,
+//                         type: bed.type,
+//                         Hospital:{
+//                             connect:{id: createdHospital.id}
+//                         }
+//                     }
+//                 })
+//             }))
+//             console.log("Hospital seeded:", createdHospital);
+
+//         }))
+
+
+//         return c.json({message: "Dummy hospitals seeded successfully"});
         
-    } catch (error) {
-        console.error("Error seeding dummy hospitals:", error);
-        return c.json({message: "Error seeding dummy hospitals"}, 500);
-    }
-});
+//     } catch (error) {
+//         console.error("Error seeding dummy hospitals:", error);
+//         return c.json({message: "Error seeding dummy hospitals"}, 500);
+//     }
+// });

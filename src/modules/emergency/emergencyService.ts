@@ -11,7 +11,11 @@ export class EmergencyService {
 
     async getAllEmergencies(): Promise<Emergency[]> {
         try {
-            const emergencies = await this.prisma.emergency.findMany();
+            const emergencies = await this.prisma.emergency.findMany({
+                include:{
+                    
+                }
+            });
             return emergencies;
         } catch (error) {
             console.error("🔴 Error in getAllEmergencies service:", error);
