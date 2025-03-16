@@ -4,7 +4,7 @@ This repository contains the backend API services for the MedConnect project, a 
 
 ## Project Overview
 
-(This repo is the backend of the platform. For the frontend, see [medconnect-frontend](https://github.com/Jayant-issar/hackathon-medconnect-frontend))
+(This repo is the backend of the platform. For the frontend, see [medconnect-frontend](https://github.com/Jayant-issar/hackathon-medConnect))
 MedConnect is a web-based platform that centralizes essential medical resources such as blood banks, hospital beds, and medical supplies. It facilitates community-driven assistance and provides real-time alerts during emergencies, aiming to improve coordination between patients, hospitals, and volunteers.
 
 This backend provides the API endpoints to manage and serve data for the MedConnect application.
