@@ -102,7 +102,7 @@ Refer to the code in `src/modules` directory, specifically the router files (`us
 
 To use these APIs, you will typically send HTTP requests from the frontend application (or using tools like `curl` or Postman).
 
-*   **Authentication:** Most protected endpoints (if implemented) will require a valid JWT token in the `Authorization` header. This backend is set up to use Clerk for authentication, and the `authMiddleware.ts` handles JWT verification.
+*   **Authentication:** Most protected endpoints will require a valid JWT token in the `Authorization` header. This backend is set up to use Clerk for authentication, and the `authMiddleware.ts` handles JWT verification.
 
 *   **Request and Response Formats:** API requests and responses are generally in JSON format. Refer to the schema files in `src/schemas` for the expected structure of request bodies and data validation rules.
 
